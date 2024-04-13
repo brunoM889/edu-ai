@@ -2,32 +2,222 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+html,
+body{
+  width: 100vw;
+	overflow-x: hidden;
+}
+input{
+  outline: none;
+}
+textarea{
+  outline: none;
+}
+body::-webkit-scrollbar {
+  width: 1px; /* Grosor del scrollbar para navegadores webkit */
+}
+*::-webkit-scrollbar {
+  width: 1px; /* Grosor del scrollbar para navegadores webkit */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+*::-webkit-scrollbar-track {
+  background: transparent; /* Color de fondo del scrollbar */
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+*::-webkit-scrollbar-thumb {
+  background-color: #75726C; /* Color del thumb del scrollbar */
+  border: transparent; /* Borde del thumb */
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+*::-webkit-scrollbar-thumb:active {
+  background-color: #75726cab; /* Color del thumb al pasar el mouse */
+}
+
+
+
+
+/* Loader*/
+.loader-1 {
+	height: 32px;
+	width: 32px;
+	-webkit-animation: loader-1-1 4.8s linear infinite;
+	        animation: loader-1-1 4.8s linear infinite;
+}
+@-webkit-keyframes loader-1-1 {
+	0%   { -webkit-transform: rotate(0deg); }
+	100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes loader-1-1 {
+	0%   { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+.loader-1 span {
+	display: block;
+	position: absolute;
+	top: 0; left: 0;
+	bottom: 0; right: 0;
+	margin: auto;
+	height: 32px;
+	width: 32px;
+	clip: rect(0, 32px, 32px, 16px);
+	-webkit-animation: loader-1-2 1.2s linear infinite;
+	        animation: loader-1-2 1.2s linear infinite;
+}
+@-webkit-keyframes loader-1-2 {
+	0%   { -webkit-transform: rotate(0deg); }
+	100% { -webkit-transform: rotate(220deg); }
+}
+@keyframes loader-1-2 {
+	0%   { transform: rotate(0deg); }
+	100% { transform: rotate(220deg); }
+}
+.loader-1 span::after {
+	content: "";
+	position: absolute;
+	top: 0; left: 0;
+	bottom: 0; right: 0;
+	margin: auto;
+	height: 32px;
+	width: 32px;
+	clip: rect(0, 32px, 32px, 16px);
+	border: 3px solid #F4ECDF;
+	border-radius: 50%;
+	-webkit-animation: loader-1-3 1.2s cubic-bezier(0.770, 0.000, 0.175, 1.000) infinite;
+	        animation: loader-1-3 1.2s cubic-bezier(0.770, 0.000, 0.175, 1.000) infinite;
+}
+@-webkit-keyframes loader-1-3 {
+	0%   { -webkit-transform: rotate(-140deg); }
+	50%  { -webkit-transform: rotate(-160deg); }
+	100% { -webkit-transform: rotate(140deg); }
+}
+@keyframes loader-1-3 {
+	0%   { transform: rotate(-140deg); }
+	50%  { transform: rotate(-160deg); }
+	100% { transform: rotate(140deg); }
+}
+
+
+.on{
+	animation: onn .4s;
+}
+.off{
+	animation: of .4s;
+}
+@keyframes of {
+	0%{
+		scale: 1;
+	}
+	50%{
+		opacity: 0;
+	}
+	100%{
+		opacity: 0;
+		scale: 0;
+	}
+}
+@keyframes onn {
+	0%{
+		scale: 0;
+	}
+	100%{
+		scale: 1;
+	}
+}
+button{
+	transition: all .2s;
+}
+button:hover{
+	background-color: #75726c80;
+}
+.ReactFlipCard__container{
+	width: 50vw;
+	min-height: 300px;
+	max-width: 650px;
+	min-width: 260px;
+	margin-top: 15vh;
+}
+.ReactFlipCard__flipcard{
+	width: 100%;
+	height: 100%;
+}
+
+section{
+	animation: charge 1s;
+}
+
+@keyframes charge {
+	0%{
+		opacity: 0;
+	}
+	50%{
+		opacity: 0;
+	}
+	100%{
+		opacity: 1;
+	}
+}
+
+@media (max-width:1220px){
+	.ReactFlipCard__container{
+		width: 90vw;
+	}
+	.buttons-container{
+		width: 415px;
+	}
+	#prompt{
+		width: 95%;
+	}
+}
+@media (max-width:1150px) {
+	.ai-inp{
+		width: 80%;
+	}
+}
+@media (max-width:834px){
+	.sugerencias-container{
+		display: none;
+	}
+	.chatPag-container{
+		width: 90%;
+	}
+}
+@media (max-width:885px) {
+	.ai-inp{
+		width: 100%;
+	}
+	.ai-form{
+		justify-content: center;
+	}
+}
+
+@media (max-width:645px) {
+	.chat-container{
+		width: 90vw;
+		right: 25px;
+	}
+	.open{
+		right: 5vw;
+	}
+}
+.off{
+	animation: of .3s;
+}
+.on{
+	animation: onn .3s;
+}
+@keyframes onn {
+	from{
+		opacity: 0;
+	}
+	to{
+		opacity: 1;
+	}
+}
+@keyframes of {
+	from{
+		opacity: 1;
+	}
+	to{
+		opacity: 0;
+	}
 }
