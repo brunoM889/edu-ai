@@ -119,38 +119,40 @@ function PractForm({ f }) {
             >
               Requerido
             </span>
-            {prompt == "" && (
-              <div className="w-[69%] mt-1 flex items-center gap-[10px] font-medium relative top-[-15px] max-[1220px]:w-[94%]">
-                <label
-                  htmlFor="f"
-                  className={`p-2 px-5 text-[12px] font-normal rounded-full bg-[#202020] active:scale-90 active:text-[#161616] transition-all hover:bg-[#464441] cursor-pointer ${
-                    pdf && "bg-[#fff7e9] text-[#161616] hover:bg-[#fff7e9]"
-                  }`}
-                >
-                  USAR PDF
-                </label>
-                <input
-                  id="f"
-                  type="file"
-                  className="hidden"
-                  accept=".pdf"
-                  key={fileInputKey}
-                  onChange={(e) => {
-                    setPdf(e.target.files[0]);
-                    console.log(e.target.files[0]);
-                  }}
-                />
-                {pdf && (
-                  <IoClose
-                    className="cursor-pointer text-[25px] rounded-full p-[4px] bg-[#202020] transition-all active:scale-90"
-                    onClick={() => {
-                      setPdf(null);
-                      setFileInputKey(Date.now());
+            <div className="w-[69%] mt-1 min-h-[34px] flex items-center gap-[10px] font-medium relative top-[-15px] max-[1220px]:w-[94%]">
+              {prompt == "" && (
+                <>
+                  <label
+                    htmlFor="f"
+                    className={`p-2 px-5 text-[12px] font-normal rounded-full bg-[#202020] active:scale-90 active:text-[#161616] transition-all hover:bg-[#464441] cursor-pointer ${
+                      pdf && "bg-[#fff7e9] text-[#161616] hover:bg-[#fff7e9]"
+                    }`}
+                  >
+                    USAR PDF
+                  </label>
+                  <input
+                    id="f"
+                    type="file"
+                    className="hidden"
+                    accept=".pdf"
+                    key={fileInputKey}
+                    onChange={(e) => {
+                      setPdf(e.target.files[0]);
+                      console.log(e.target.files[0]);
                     }}
-                  ></IoClose>
-                )}
-              </div>
-            )}
+                  />
+                  {pdf && (
+                    <IoClose
+                      className="cursor-pointer text-[25px] rounded-full p-[4px] bg-[#202020] transition-all active:scale-90"
+                      onClick={() => {
+                        setPdf(null);
+                        setFileInputKey(Date.now());
+                      }}
+                    ></IoClose>
+                  )}
+                </>
+              )}
+            </div>
           </div>
           <div className="w-[50%] h-fit flex flex-col min-w-[270px] max-w-[750px] items-center max-[893px]:w-[90%] max-[893px]:mt-[30px]">
             <label
