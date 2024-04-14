@@ -27,13 +27,11 @@ function MultiplePDFSection({ response, finish }) {
         let h = historial;
         h[contador] = 1;
         setHistorial(h);
-        console.log("correcto");
       } else {
         let h = historial;
         h[contador] = 2;
         setHistorial(h);
         setNoAcerto(true);
-        console.log("incorrecto");
       }
       setTimeout(() => {
         setSeleted(x);

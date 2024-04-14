@@ -33,11 +33,11 @@ export async function POST(req) {
   try {
     if (modalidad == "Flash cards") {
       const prompt = `ACLARACIONES: 
-        ***IMPORTANTE*** 
-        Estas son las aclaraciones de como debes responder:
-        Vas a recibir una descripcion sobre la materia y/o los temas sobre los que quiero estudiar, y SOLAMENTE PUEDES RESPONDER DE LAS SIGUIENTES DOS FORMAS, 
-        ***MUY IMPORTANTE***
-        Si la descripcion que recibes no expresa una descripcion sobre una materia/temas academicos, vas a responder con un $.
+      ***IMPORTANTE*** 
+      Estas son las aclaraciones de como debes responder:
+      Vas a recibir un nombre o una descripcion sobre la materia o los temas sobre los que quiero estudiar, y SOLAMENTE PUEDES RESPONDER DE LAS SIGUIENTES DOS FORMAS, 
+      ***MUY IMPORTANTE***
+      Si la descripcion que recibes no expresa un nombre o una descripcion sobre una materia/temas academicos, vas a responder con un $.
         En cambio si la descripcion es valida, vas a devolver 10 flash cards relacionadas con los temas proveidos. Por ejemplo con el prompt "analisis matematico, limites" la respuesta deberia tener el siguiente formato:
 
         [{Nombre del concepto o algo que haga alucion a la respuesta}{Descripcion/explicacion breve del concepto}] 
@@ -56,7 +56,7 @@ export async function POST(req) {
       const result = await model.generateContent(prompt);
       const response = await result.response;
       const text = response.text();
-
+      console.log(text)
       if (text[0] == "$") {
         return NextResponse.json({ error: true });
       } else {
@@ -70,11 +70,11 @@ export async function POST(req) {
       }
     } else if (modalidad == "Preguntas y respuestas") {
       const prompt = `ACLARACIONES: 
-        ***IMPORTANTE*** 
-        Estas son las aclaraciones de como debes responder:
-        Vas a recibir una descripcion sobre la materia y/o los temas sobre los que quiero estudiar, y SOLAMENTE PUEDES RESPONDER DE LAS SIGUIENTES DOS FORMAS, 
-        ***MUY IMPORTANTE***
-        Si la descripcion que recibes no expresa una descripcion sobre una materia/temas academicos, vas a responder con un $.
+      ***IMPORTANTE*** 
+      Estas son las aclaraciones de como debes responder:
+      Vas a recibir un nombre o una descripcion sobre la materia o los temas sobre los que quiero estudiar, y SOLAMENTE PUEDES RESPONDER DE LAS SIGUIENTES DOS FORMAS, 
+      ***MUY IMPORTANTE***
+      Si la descripcion que recibes no expresa un nombre o una descripcion sobre una materia/temas academicos, vas a responder con un $.
         En cambio si la descripcion es valida, vas a devolver 10 preguntas o consignas teoricas relacionadas con el tema. El formato es el siguiente:
         1- Pregunta o Consigna
         2- Pregunta o Consigna
@@ -95,7 +95,7 @@ export async function POST(req) {
       const result = await model.generateContent(prompt);
       const response = await result.response;
       const text = response.text();
-
+      console.log(text)
       if (text[0] == "$") {
         return NextResponse.json({ error: true });
       } else {
@@ -109,9 +109,9 @@ export async function POST(req) {
       const prompt = `ACLARACIONES: 
         ***IMPORTANTE*** 
         Estas son las aclaraciones de como debes responder:
-        Vas a recibir una descripcion sobre la materia y/o los temas sobre los que quiero estudiar, y SOLAMENTE PUEDES RESPONDER DE LAS SIGUIENTES DOS FORMAS, 
+        Vas a recibir un nombre o una descripcion sobre la materia o los temas sobre los que quiero estudiar, y SOLAMENTE PUEDES RESPONDER DE LAS SIGUIENTES DOS FORMAS, 
         ***MUY IMPORTANTE***
-        Si la descripcion que recibes no expresa una descripcion sobre una materia/temas academicos, vas a responder con un $.
+        Si la descripcion que recibes no expresa un nombre o una descripcion sobre una materia/temas academicos, vas a responder con un $.
         En cambio si la descripcion es valida, vas a devolver 10 preguntas/consignas que pueden ser respondidas en formato multiple choice, es decir, las respuestas a estas preguntas son cortas y concisas (la pregunta debe estar pensada para que las respuestas puedan tener menos de 60 caracteres). Por ejemplo con el prompt "analisis matematico, limites" la respuesta deberia tener el siguiente formato: 
   
         ¿Qué representa el concepto de límite en el contexto del análisis matemático?
@@ -127,7 +127,7 @@ export async function POST(req) {
       const result = await model.generateContent(prompt);
       const response = await result.response;
       const text = response.text();
-
+      console.log(text)
       if (text[0] == "$") {
         return NextResponse.json({ error: true });
       } else {
@@ -135,15 +135,15 @@ export async function POST(req) {
         const lines = text.split("\n");
         console.log(lines);
 
-        return NextResponse.json({ respuesta: lines, error: false});
+        return NextResponse.json({ respuesta: lines, error: false });
       }
     } else if (modalidad == "Verdadero o falso") {
       const prompt = `ACLARACIONES: 
-        ***IMPORTANTE*** 
-        Estas son las aclaraciones de como debes responder:
-        Vas a recibir una descripcion sobre la materia y/o los temas sobre los que quiero estudiar, y SOLAMENTE PUEDES RESPONDER DE LAS SIGUIENTES DOS FORMAS, 
-        ***MUY IMPORTANTE***
-        Si la descripcion que recibes no expresa una descripcion sobre una materia/temas academicos, vas a responder con un $.
+      ***IMPORTANTE*** 
+      Estas son las aclaraciones de como debes responder:
+      Vas a recibir un nombre o una descripcion sobre la materia o los temas sobre los que quiero estudiar, y SOLAMENTE PUEDES RESPONDER DE LAS SIGUIENTES DOS FORMAS, 
+      ***MUY IMPORTANTE***
+      Si la descripcion que recibes no expresa un nombre o una descripcion sobre una materia/temas academicos, vas a responder con un $.
         En cambio si la descripcion es valida, vas a devolver 10 afirmaciones que se puedan responder con verdadero o falso sobre el/los temas descriptos, al final de cada afirmacion debes escribir una V o una F dependiendo de si la respuesta es verdadero o falso. Por ejemplo con el prompt "analisis matematico, limites" la respuesta deberia tener el siguiente formato: 
   
         Si una función tiene un límite finito en un punto, entonces la función debe ser continua en ese punto. V
@@ -158,7 +158,7 @@ export async function POST(req) {
       const result = await model.generateContent(prompt);
       const response = await result.response;
       const text = response.text();
-
+      console.log(text)
       if (text[0] == "$") {
         return NextResponse.json({ error: true });
       } else {

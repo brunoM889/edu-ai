@@ -11,6 +11,7 @@ function Multiple({ response, finish }) {
   const [correcta, setCorrecta] = useState(null);
   const [posiciones, setPosiciones] = useState(null);
   const [historial, setHistorial] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+  const [noAcerto, setNoAcerto]= useState(false)
   function generarNumerosAleatorios() {
     var numeros = [];
     while (numeros.length < 4) {
@@ -26,14 +27,13 @@ function Multiple({ response, finish }) {
       if (x != "x") {
         if (x == correcta) {
           let h = historial;
-          h[contador-1] = 1;
+          h[contador - 1] = 1;
           setHistorial(h);
-          console.log("correcto");
         } else {
           let h = historial;
-          h[contador-1] = 2;
+          h[contador - 1] = 2;
           setHistorial(h);
-          console.log("incorrecto");
+          setNoAcerto(true)
         }
         setTimeout(() => {
           setSeleted(x);
@@ -55,13 +55,12 @@ function Multiple({ response, finish }) {
       };
       const respuesta = await peticion();
       if (respuesta.error) {
-        console.log(respuesta.error);
         sendResponse(x);
       } else {
         setContador(contador + 1);
         setOpciones(respuesta.opciones);
         setSeleted(null);
-        console.log(respuesta);
+        setNoAcerto(false)
         setCorrecta(respuesta.opciones[0]);
         setPosiciones(generarNumerosAleatorios);
       }
@@ -69,12 +68,13 @@ function Multiple({ response, finish }) {
       if (x != "x") {
         if (x == correcta) {
           let h = historial;
-          h[contador-1] = 1;
+          h[contador - 1] = 1;
           setHistorial(h);
         } else {
           let h = historial;
-          h[contador-1] = 2;
+          h[contador - 1] = 2;
           setHistorial(h);
+          setNoAcerto(true)
         }
         setTimeout(() => {
           setSeleted(x);
@@ -103,7 +103,12 @@ function Multiple({ response, finish }) {
                 <button
                   className={`px-5 w-[45%] rounded flex items-center bg-[#202020] ${
                     !selected && "active:bg-[#fff7e9] active:text-[#202020]"
-                  } transition-all justify-center py-4  min-w-[250px] min-h-[80px] font-light ${
+                  } ${
+                  noAcerto &&
+                  correcta == opciones[posiciones[0]]
+                    ? "bg-[#fff7e9a5] text-[#161616]"
+                    : ""
+                } transition-all justify-center py-4  min-w-[250px] min-h-[80px] font-light ${
                     selected == opciones[posiciones[0]] &&
                     "bg-[rgb(255,247,233)] text-[#202020] hover:bg-[#fff7e9]"
                   }`}
@@ -116,7 +121,12 @@ function Multiple({ response, finish }) {
                 <button
                   className={`px-5 w-[45%] rounded flex items-center bg-[#202020] ${
                     !selected && "active:bg-[#fff7e9] active:text-[#202020]"
-                  } transition-all justify-center py-4 min-w-[250px] min-h-[80px] font-light ${
+                  } ${
+                  noAcerto &&
+                  correcta == opciones[posiciones[1]]
+                    ? "bg-[#fff7e9a5] text-[#161616]"
+                    : ""
+                } transition-all justify-center py-4 min-w-[250px] min-h-[80px] font-light ${
                     selected == opciones[posiciones[1]] &&
                     "bg-[#fff7e9] text-[#202020] hover:bg-[#fff7e9]"
                   }`}
@@ -131,7 +141,12 @@ function Multiple({ response, finish }) {
                 <button
                   className={`px-5 w-[45%] rounded flex items-center bg-[#202020] ${
                     !selected && "active:bg-[#fff7e9] active:text-[#202020]"
-                  } transition-all justify-center py-4 min-w-[250px] min-h-[80px] font-light ${
+                  } ${
+                  noAcerto &&
+                  correcta == opciones[posiciones[2]]
+                    ? "bg-[#fff7e9a5] text-[#161616]"
+                    : ""
+                } transition-all justify-center py-4 min-w-[250px] min-h-[80px] font-light ${
                     selected == opciones[posiciones[2]] &&
                     "bg-[#fff7e9] text-[#202020] hover:bg-[#fff7e9]"
                   }`}
@@ -144,7 +159,12 @@ function Multiple({ response, finish }) {
                 <button
                   className={`px-5 w-[45%] rounded flex items-center bg-[#202020] ${
                     !selected && "active:bg-[#fff7e9] active:text-[#202020]"
-                  } transition-all justify-center py-4 min-w-[250px] min-h-[80px] font-light ${
+                  } ${
+                  noAcerto &&
+                  correcta == opciones[posiciones[3]]
+                    ? "bg-[#fff7e9a5] text-[#161616]"
+                    : ""
+                } transition-all justify-center py-4 min-w-[250px] min-h-[80px] font-light ${
                     selected == opciones[posiciones[3]] &&
                     "bg-[#fff7e9] text-[#202020] hover:bg-[#fff7e9]"
                   }`}
