@@ -5,7 +5,8 @@ export async function POST(req) {
   const res = await req.json();
   const resultados = res.resultados;
   try {
-    const prompt = `ACLARACIONES: 
+    if (res.tipoDeRespuesta == 0) {
+      const prompt = `ACLARACIONES: 
       ***IMPORTANTE*** 
       Estas son las aclaraciones de como debes responder:
         Vas a recibir una pregunta/consigna y una respuesta que dio el usuario a esa pregunta.
@@ -27,36 +28,47 @@ export async function POST(req) {
 
       Respuesta:{${resultados.a}}
       `;
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const text = response.text();
 
-    //console.log(text);
-    const lines = text.split("\n");
-    console.log(lines);
+      //console.log(text);
+      const lines = text.split("\n");
+      console.log(lines);
 
-    if (text[0] == "$") {
-      return NextResponse.json({ error: true });
-    } else {
-      if (lines[1] == "") {
-        return NextResponse.json({
-          correccion: lines[0],
-          nota: lines[2],
-          error: false,
-        });
-      } else if (lines[1] != "") {
-        return NextResponse.json({
-          correccion: lines[0],
-          nota: lines[1],
-          error: false,
-        });
+      if (text[0] == "$") {
+        return NextResponse.json({ error: true });
       } else {
-        return NextResponse.json({
-          correccion: lines[0],
-          nota: 5,
-          error: false,
-        });
+        if (lines[1] == "") {
+          return NextResponse.json({
+            correccion: lines[0],
+            nota: lines[2],
+            error: false,
+          });
+        } else if (lines[1] != "") {
+          return NextResponse.json({
+            correccion: lines[0],
+            nota: lines[1],
+            error: false,
+          });
+        } else {
+          return NextResponse.json({
+            correccion: lines[0],
+            nota: 5,
+            error: false,
+          });
+        }
       }
+    } else {
+      const prompt = `${resultados}`;
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const text = response.text();
+
+      console.log(text);
+      return NextResponse.json({
+        a: text,
+      });
     }
   } catch (e) {
     console.log(e);

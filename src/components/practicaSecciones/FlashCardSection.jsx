@@ -12,8 +12,8 @@ function FlashCardSection({ response }) {
   const [contador, setContador] = useState(0);
   const styles = {
     card: {
-      background: "#202020",
-      color: "#fff7e9",
+      background: `#202020`,
+      color: `#D2CCC0`,
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
@@ -21,6 +21,7 @@ function FlashCardSection({ response }) {
       width: "100%",
       borderRadius: 6,
       paddingInline: "5vw",
+      opacity: 0.8,
     },
   };
   return (
@@ -48,18 +49,18 @@ function FlashCardSection({ response }) {
             </span>
             <div className="flex gap-2 mr-1">
               <IoChevronBackCircleOutline
-                className="text-[35px] cursor-pointer rounded-full active:scale-95 hover:text-[#c0b8ab] transition-all"
+                className={`text-[35px] cursor-pointer rounded-full active:scale-95 hover:text-[#D2CCC0] transition-all`}
                 onClick={() => {
                   if (contador == 0) {
-                    setContador(response.length-1);
+                    setContador(response.length - 1);
                   } else {
                     let count = contador - 1;
                     setContador(count);
                   }
                 }}
-              ></IoChevronBackCircleOutline>
+              />
               <IoChevronForwardCircleOutline
-                className="text-[35px] cursor-pointer rounded-full active:scale-95 hover:text-[#c0b8ab] transition-all"
+                className={`text-[35px] cursor-pointer rounded-full active:scale-95 hover:text-[#D2CCC0] transition-all`}
                 onClick={() => {
                   if (contador == response.length - 1) {
                     setContador(0);
@@ -68,7 +69,7 @@ function FlashCardSection({ response }) {
                     setContador(count);
                   }
                 }}
-              ></IoChevronForwardCircleOutline>
+              />
             </div>
           </div>
         </div>

@@ -26,8 +26,7 @@ export async function POST(req) {
     const pdfBuffer = await res.get("file").arrayBuffer();
     const pageData = await PdfParse(pdfBuffer);
     const pageText = pageData.text;
-    const caracteresPorFrame =
-      Math.round(pageText.length / pageData.numpages) * 2;
+    const caracteresPorFrame = Math.round(pageText.length / pageData.numpages) * 2;
 
     const resultado = [];
     let frame = "";

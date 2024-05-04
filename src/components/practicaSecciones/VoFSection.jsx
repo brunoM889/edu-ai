@@ -8,6 +8,7 @@ function VoFSection({ response, finish }) {
   const [contador, setContador] = useState(0);
   const [historial, setHistorial] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   const [decision, setDecision] = useState(null);
+  const [fin, setFin]= useState(true)
   const handleResponse = (x) => {
     if (!decision && contador != 9) {
       setDecision(x)
@@ -15,33 +16,29 @@ function VoFSection({ response, finish }) {
       if (x == response[contador].vf) {
         h[contador] = 1;
         setHistorial(h);
-        console.log("correcto");
       } else {
         h[contador] = 2;
         setHistorial(h);
-        console.log("incorrecto");
       }
       setTimeout(()=>{
         setDecision(null)
         setContador(contador+1)
       },1000)
-    }else if(contador== 9){
+    }else if(contador==9 && fin){
       setDecision(x)
+      setFin(false)
       let h = historial;
       if (x == response[contador].vf) {
         h[contador] = 1;
         setHistorial(h);
-        console.log("correcto");
       } else {
         h[contador] = 2;
         setHistorial(h);
-        console.log("incorrecto");
       }
       setTimeout(() => {
         finish();
       }, 5000);
     }
-    
   };
 
   return (
@@ -78,7 +75,7 @@ function VoFSection({ response, finish }) {
             Falso
           </button>
         </div>
-        <div className="w-full flex gap-1 justify-center items-center max-[375px]:px-[65px] max-[375px]:flex-wrap mt-14">
+        <div className="w-full flex gap-1 justify-center items-center max-[375px]:px-[65px] max-[375px]:flex-wrap mt-14 max-[328px]:px-[16vw]">
           {historial.map((x, i) => {
             return (
               <div key={i} className="h-fit w-fit flex items-center">

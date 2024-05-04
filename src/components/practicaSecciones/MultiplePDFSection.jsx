@@ -40,9 +40,37 @@ function MultiplePDFSection({ response, finish }) {
       setTimeout(() => {
         setContador(contador + 1);
         setSeleted(null);
-        setNoAcerto(false)
-        setCorrecta(response[contador+1].opciones[0]);
+        setNoAcerto(false);
         setPosiciones(generarNumerosAleatorios);
+        for (let o of response[contador + 1].opciones) {
+          if (o[o.length - 1] == "*") {
+            o.pop();
+          }
+          if (o[o.length - 1] == "*") {
+            o.pop();
+          }
+          if (o[o.length - 1] == "*") {
+            o.pop();
+          }
+        }
+        for (let o of response[contador + 1].opciones) {
+          if (
+            o[2] == "*" ||
+            o[0] == "*" ||
+            o[1] == "*" ||
+            o[3] == "*" ||
+            o[4] == "*" ||
+            o[5] == "*" ||
+            o[6] == "*"
+          ) {
+            let c = o.replace("*", "");
+            response[contador + 1].opciones[
+              response[contador + 1].opciones.indexOf(o)
+            ] = c;
+            setCorrecta(c);
+            break;
+          }
+        }
       }, 2000);
     } else if (contador == 9) {
       if (x == correcta) {
@@ -66,7 +94,33 @@ function MultiplePDFSection({ response, finish }) {
   };
 
   useEffect(() => {
-    setCorrecta(response[contador].opciones[0]);
+    for (let o of response[contador].opciones) {
+      if (
+        o[2] == "*" ||
+        o[0] == "*" ||
+        o[1] == "*" ||
+        o[3] == "*" ||
+        o[4] == "*" ||
+        o[5] == "*" ||
+        o[6] == "*"
+      ) {
+        let c = o.replace("*", "");
+        response[contador].opciones[response[contador].opciones.indexOf(o)] = c;
+        setCorrecta(c);
+        break;
+      }
+    }
+    for (let o of response[contador + 1].opciones) {
+      if (o[o.length - 1] == "*") {
+        o.pop();
+      }
+      if (o[o.length - 1] == "*") {
+        o.pop();
+      }
+      if (o[o.length - 1] == "*") {
+        o.pop();
+      }
+    }
     setPosiciones(generarNumerosAleatorios);
   }, []);
 
@@ -82,15 +136,15 @@ function MultiplePDFSection({ response, finish }) {
             <div className="w-full flex justify-center gap-5 flex-wrap">
               <button
                 className={`px-5 w-[45%] rounded flex items-center bg-[#202020] ${
-                  !selected && "active:bg-[#fff7e9] active:text-[#161616]"
+                  !selected &&
+                  `active:bg-[#fff7e9] active:text-[#161616]`
                 } ${
                   noAcerto &&
-                  correcta == response[contador].opciones[posiciones[0]]
-                    ? "bg-[#fff7e9a5] text-[#161616]"
-                    : ""
+                  correcta == response[contador].opciones[posiciones[0]] &&
+                  `bg-[#464441]`
                 } transition-all justify-center py-4  min-w-[250px] min-h-[80px] font-light ${
                   selected == response[contador].opciones[posiciones[0]] &&
-                  "bg-[rgb(255,247,233)] text-[#161616] hover:bg-[#fff7e9]"
+                  `bg-[rgb(255,247,233)] text-[#161616] hover:bg-[#fff7e9]`
                 }`}
                 onClick={() => {
                   sendResponse(response[contador].opciones[posiciones[0]]);
@@ -100,15 +154,15 @@ function MultiplePDFSection({ response, finish }) {
               </button>
               <button
                 className={`px-5 w-[45%] rounded flex items-center bg-[#202020] ${
-                  !selected && "active:bg-[#fff7e9] active:text-[#161616]"
+                  !selected &&
+                  `active:bg-[#fff7e9] active:text-[#161616]`
                 } ${
                   noAcerto &&
-                  correcta == response[contador].opciones[posiciones[1]]
-                    ? "bg-[#fff7e9a5] text-[#161616]"
-                    : ""
+                  correcta == response[contador].opciones[posiciones[1]] &&
+                  `bg-[#464441]`
                 } transition-all justify-center py-4 min-w-[250px] min-h-[80px] font-light ${
                   selected == response[contador].opciones[posiciones[1]] &&
-                  "bg-[#fff7e9] text-[#161616] hover:bg-[#fff7e9]"
+                  `bg-[#fff7e9] text-[#161616] hover:bg-[#fff7e9]`
                 }`}
                 onClick={() => {
                   sendResponse(response[contador].opciones[posiciones[1]]);
@@ -120,15 +174,15 @@ function MultiplePDFSection({ response, finish }) {
             <div className="w-full flex justify-center gap-5 flex-wrap">
               <button
                 className={`px-5 w-[45%] rounded flex items-center bg-[#202020] ${
-                  !selected && "active:bg-[#fff7e9] active:text-[#161616]"
+                  !selected &&
+                  `active:bg-[#fff7e9] active:text-[#161616]`
                 } ${
                   noAcerto &&
-                  correcta == response[contador].opciones[posiciones[2]]
-                    ? "bg-[#fff7e9a5] text-[#161616]"
-                    : ""
+                  correcta == response[contador].opciones[posiciones[2]] &&
+                  `bg-[#464441]`
                 } transition-all justify-center py-4 min-w-[250px] min-h-[80px] font-light ${
                   selected == response[contador].opciones[posiciones[2]] &&
-                  "bg-[#fff7e9] text-[#161616] hover:bg-[#fff7e9]"
+                  `bg-[#fff7e9] text-[#161616] hover:bg-[#fff7e9]`
                 }`}
                 onClick={() => {
                   sendResponse(response[contador].opciones[posiciones[2]]);
@@ -138,15 +192,15 @@ function MultiplePDFSection({ response, finish }) {
               </button>
               <button
                 className={`px-5 w-[45%] rounded flex items-center bg-[#202020] ${
-                  !selected && "active:bg-[#fff7e9] active:text-[#161616]"
+                  !selected &&
+                  `active:bg-[#fff7e9] active:text-[#161616]`
                 } ${
                   noAcerto &&
-                  correcta == response[contador].opciones[posiciones[3]]
-                    ? "bg-[#fff7e9a5] text-[#161616]"
-                    : ""
+                  correcta == response[contador].opciones[posiciones[3]] &&
+                  `bg-[#464441]`
                 } transition-all justify-center py-4 min-w-[250px] min-h-[80px] font-light ${
                   selected == response[contador].opciones[posiciones[3]] &&
-                  "bg-[#fff7e9] text-[#161616] hover:bg-[#fff7e9]"
+                  `bg-[#fff7e9] text-[#161616] hover:bg-[#fff7e9]`
                 }`}
                 onClick={() => {
                   sendResponse(response[contador].opciones[posiciones[3]]);
@@ -160,13 +214,19 @@ function MultiplePDFSection({ response, finish }) {
                 return (
                   <div key={i} className="h-fit w-fit flex items-center">
                     {x == 0 ? (
-                      <div className="w-[30px] h-[30px] rounded-full bg-[#202020]"></div>
+                      <div
+                        className={`w-[30px] h-[30px] rounded-full bg-[#202020]`}
+                      ></div>
                     ) : (
                       <>
                         {x == 1 ? (
-                          <IoCheckmark className="text-[30px] p-1 rounded-full bg-[#202020]"></IoCheckmark>
+                          <IoCheckmark
+                            className={`text-[30px] p-1 rounded-full bg-[#202020]`}
+                          />
                         ) : (
-                          <IoCloseOutline className="text-[30px] p-1 rounded-full bg-[#202020]"></IoCloseOutline>
+                          <IoCloseOutline
+                            className={`text-[30px] p-1 rounded-full bg-[#202020]`}
+                          />
                         )}
                       </>
                     )}

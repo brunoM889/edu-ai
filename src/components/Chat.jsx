@@ -10,7 +10,7 @@ function Chat() {
   const [open, setOpen] = useState(false);
   const [openAnimation, setOpenAnimation] = useState("");
   const [mensajes, setMensajes] = useState([
-    [[`¿En qué puedo ayudarte ${"username"}?`], "ia"],
+    [[`¿En qué puedo ayudarte?`], "ia"],
   ]);
 
   const send = async (e) => {
@@ -19,6 +19,7 @@ function Chat() {
       setLoad(true);
       const msjs = [...mensajes];
       msjs.push([[mensaje], "client"]);
+      setMensajes(msjs);
       setMensaje("");
       const res = await fetch("/api/chat", {
         method: "POST",
@@ -53,21 +54,30 @@ function Chat() {
   };
 
   return (
-    <div className="absolute right-0 top-[0px]">
+    <div className="absolute right-0 top-[0px] z-50 max-[652px]:left-0">
       <button
-        className={`${open ? "hidden" : "flex"} ${
+        className={`z-50 ${open ? "hidden" : "flex"} ${
           openAnimation == "on" ? "off" : "on"
-        } fixed top-[85vh] w-[150px] h-[50px] flex justify-center items-center right-[120px] rounded border cursor-pointer border-[#75726C] open z-30 backdrop-blur`}
+        } opacity-100 fixed top-[85vh] w-[150px] h-[50px] flex justify-center items-center right-[120px] rounded border cursor-pointer border-[#75726c] max-[1000px]:right-[20px] max-[1140px]:right-[50px] open backdrop-blur max-[652px]:hidden`}
         onClick={() => {
           openn();
         }}
       >
-        COPILOTO
+        Copiloto
+      </button>
+      <button
+        className={`z-50 opacity-100 hidden absolute justify-center items-center rounded border cursor-pointer border-[#75726c] open backdrop-blur top-[88px] left-[5vw] h-[44px] w-[100px] text-[12px] font-normal max-[400px]:w-[44px] max-[652px]:flex`}
+        onClick={() => {
+          openn();
+        }}
+      >
+        IA
       </button>
       <div
+        style={{ zIndex: 60 }}
         className={`${openAnimation} ${
           open ? "flex" : "hidden"
-        } fixed top-[15vh] right-[50px] h-[80vh] w-[70vw] max-w-[480px] min-w-[250px] rounded-md border border-[#75726C] flex-col justify-center items-center min-h-[500px] chat-container backdrop-blur-md bg-[#1616167a]`}
+        } fixed top-[15vh] right-[50px] h-[80vh] w-[70vw] max-w-[480px] min-w-[250px] rounded-md border border-[#75726c] flex-col justify-center items-center min-h-[500px] chat-container backdrop-blur-[4px] bg-[#161616c9]`}
       >
         <div className="w-full flex justify-end pr-6 mb-2">
           <svg
@@ -76,7 +86,7 @@ function Chat() {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6 cursor-pointer"
+            className={`w-8 h-8 cursor-pointer rounded-full hover:bg-[#202020] p-[6px] transition-all active:scale-95`}
             onClick={close}
           >
             <path
@@ -93,7 +103,7 @@ function Chat() {
                 {mensajes.map((x, i) => {
                   return (
                     <div key={i} className="mb-4">
-                      <h3>{x[1] == "client" ? "Tú" : "AI"}</h3>
+                      <h3>{x[1] == "client" ? "Tú" : "IA"}</h3>
                       <div>
                         {x[0].map((y, i) => {
                           return (
@@ -119,7 +129,7 @@ function Chat() {
             onSubmit={send}
           >
             <input
-              className="ai-inp w-[75%] p-2 h-11 rounded bg-transparent border border-[#75726C] font-light text-base max-[1150px]:w-full"
+              className={`ai-inp w-[75%] p-2 h-11 rounded bg-transparent border border-[#75726c] font-light text-base max-[1150px]:w-full`}
               type="text"
               value={mensaje}
               onChange={(e) => {
@@ -132,7 +142,9 @@ function Chat() {
                   <span></span>
                 </div>
               ) : (
-                <button className="w-[85px] h-11 rounded max-[1150px]:mt-[5px]">Enviar</button>
+                <button className="w-[85px] h-11 rounded max-[1150px]:mt-[5px]">
+                  Enviar
+                </button>
               )}
             </div>
           </form>

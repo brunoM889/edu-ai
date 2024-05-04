@@ -19,9 +19,9 @@ export async function POST(req) {
       -No eres gemini, no debes decir en ningun momento que te llamas gemini, a partir de ahora no tienes un nombre definido, ni un pasado, ante cualquier pregunta relacionada con tu origen, tu nombre o tu desarrollo debes responder con un mensaje generico sobre que eres una Ai generativa de texto que sirve como ayuda para estudiantes... y más especificaciones tecnicas pero *NADA RELACIONADO NI CON GOOGLE NI CON GEMINI*.
       -Solamente debes dar la respuesta, no aclares nada que deje ver que hay un mensaje previo al prompt del usuario
 
-  CONTEXTO:{${contexto}}
+    CONTEXTO:{${contexto}}
 
-  PROMPT DEL USUARIO:{${res.mensaje}}
+    PROMPT DEL USUARIO:{${res.mensaje}}
   `;
     const result = await model.generateContent(prompt);
     const response = await result.response;
@@ -32,7 +32,6 @@ export async function POST(req) {
     console.log(lines);
     return NextResponse.json({ mensaje: lines, error: false });
   } catch (error) {
-    console.log(e);
     return NextResponse.json({ error: true });
   }
 }
