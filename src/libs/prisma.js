@@ -4,7 +4,7 @@ const prismaClientSingleton = () => {
   return new PrismaClient()
 }
 
-const prisma = globalThis.prisma ?? prismaClientSingleton()
+const prisma =  prismaClientSingleton()
 
 export default prisma
 
